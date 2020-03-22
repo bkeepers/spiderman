@@ -7,6 +7,7 @@ require "active_support/core_ext/module"
 require "active_support/concern"
 require "spiderman/version"
 require "spiderman/runner"
+require 'spiderman/railtie' if defined?(Rails)
 
 # Turn any class into a crawler by including this module.
 #
