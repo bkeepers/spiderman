@@ -29,5 +29,5 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "http", "~> 4.0"
   spec.add_runtime_dependency "nokogiri", "~> 1.10"
-  spec.add_runtime_dependency "activesupport", "~> 5.0"
+  spec.add_runtime_dependency "activesupport", ">= 5.0"
 end
