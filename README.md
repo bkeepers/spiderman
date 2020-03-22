@@ -1,8 +1,8 @@
 
 <div align="center">
-  <img width="300" height="300" src="https://user-images.githubusercontent.com/173/77249168-99488080-6c15-11ea-98de-3d14a412265d.png" alt="Spiderman">
+  <h1><img width="300" height="300" src="https://user-images.githubusercontent.com/173/77249168-99488080-6c15-11ea-98de-3d14a412265d.png" alt="Spiderman"></h1>
 
-  <h1>Spiderman • web crawler</h1>
+  <h2>your friendly neighborhood web crawler</h2>
 </div>
 
 Spiderman is a Ruby gem for crawling and processing web pages.

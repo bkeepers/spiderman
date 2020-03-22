@@ -6,8 +6,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Brandon Keepers"]
   spec.email         = ["brandon@opensoul.org"]
 
-  spec.summary       = %q{}
-  spec.description   = %q{}
+  spec.summary       = %q{your friendly neighborhood web crawler}
+  spec.description   = spec.summary
   spec.homepage      = "https://github.com/bkeepers/spiderman"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
