@@ -54,6 +54,21 @@ HackerNewsCrawler.crawl!
 
 ### ActiveJob
 
+Spiderman works with [ActiveJob](https://edgeguides.rubyonrails.org/active_job_basics.html) out of the box. If your crawler class inherits from `ActiveJob:Base`, then requests will be made in your background worker. Each request will run as a separate job.
+
+```ruby
+class MyCrawer < ActiveJob::Base
+  queue_as :crawler
+
+  crawl "https://example.com" do |response|
+    response.css('a').each {|a| process! a["href"], :link }
+  end
+
+  process :link do |response|
+    logger.info "Processing #{response.uri}"
+  end
+end
+```
 
 ## Development
 
