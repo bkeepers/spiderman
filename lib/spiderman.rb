@@ -70,7 +70,7 @@ module Spiderman
     end
 
     def inherited(subclass)
-      subclass.crawler = Runner.new
+      subclass.crawler = crawler.dup
       Spiderman.add(subclass)
     end
   end

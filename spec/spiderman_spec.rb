@@ -60,6 +60,10 @@ RSpec.describe Spiderman do
   describe "inheritance" do
     class ApplicationSpider
       include Spiderman
+      crawler.headers[:user_agent] = 'The Amazing Spiderman'
+
+      crawl "https://spiders.com" do |res|
+      end
     end
 
     class Spider1 < ApplicationSpider
@@ -71,9 +75,14 @@ RSpec.describe Spiderman do
       end
     end
 
-    it "uses separate runner for subclasses" do
-      expect(Spider1.crawler.urls).to eq(["https://cats.com"])
-      expect(Spider2.crawler.urls).to eq(["https://dogs.com"])
+    it "dups runner" do
+      expect(ApplicationSpider.crawler.urls).to eq(["https://spiders.com"])
+      expect(Spider1.crawler.urls).to eq(["https://spiders.com", "https://cats.com"])
+      expect(Spider2.crawler.urls).to eq(["https://spiders.com", "https://dogs.com"])
+    end
+
+    it "inherits config" do
+      expect(Spider1.crawler.headers[:user_agent]).to eq('The Amazing Spiderman')
     end
   end
 

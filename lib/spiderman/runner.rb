@@ -1,7 +1,7 @@
 module Spiderman
   class Runner
     class_attribute :logger, instance_accessor: true, default: Logger.new(STDOUT, level: :info)
-    attr_reader :urls, :headers
+    attr_reader :urls, :headers, :handlers
 
     def initialize
       @urls = []
@@ -30,5 +30,18 @@ module Spiderman
         response.extend HTTP::ActAsNokogiriDocument
       end
     end
+
+    def dup
+      self.class.new.tap do |obj|
+        obj.urls.replace(urls)
+        obj.handlers.update(handlers)
+        obj.headers.update(headers)
+        obj.logger = logger
+      end
+    end
+
+  protected
+    # Allow access for dup
+    attr_reader :handlers
   end
 end
