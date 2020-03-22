@@ -40,7 +40,7 @@ class HackerNewsCrawler
    save_page(response)
  end
 
- def spave_page(page)
+ def save_page(page)
    # logic here for saving the page
  end
 end
