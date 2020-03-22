@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    spiderman (1.0.0)
+    spiderman (2.0.0)
       activesupport (>= 5.0)
       http (~> 4.0)
       nokogiri (~> 1.10)
