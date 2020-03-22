@@ -1,8 +1,11 @@
-# Spiderman
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/spiderman`. To experiment with that code, run `bin/console` for an interactive prompt.
+<div align="center">
+  <img width="300" height="300" src="https://user-images.githubusercontent.com/173/77249168-99488080-6c15-11ea-98de-3d14a412265d.png" alt="Spiderman">
 
-TODO: Delete this and the text above, and describe your gem
+  <h1>Spiderman • web crawler</h1>
+</div>
+
+Spiderman is a Ruby gem for crawling and processing web pages.
 
 ## Installation
 
@@ -22,7 +25,35 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+class HackerNewsCrawler
+ include Spiderman
+
+ crawl "https://news.ycombinator.com/" do |response|
+   response.css('a.storylink').each do |a|
+     process! a["href"], :story
+   end
+ end
+
+ process :story do |response|
+   logging.info "#{response.uri} #{response.css('title').text}"
+   save_page(response)
+ end
+
+ def spave_page(page)
+   # logic here for saving the page
+ end
+end
+```
+
+Run the crawler:
+
+```ruby
+HackerNewsCrawler.crawl!
+```
+
+### ActiveJob
+
 
 ## Development
 

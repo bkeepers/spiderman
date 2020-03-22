@@ -1,4 +1,5 @@
 require "bundler/setup"
+require 'webmock/rspec'
 require "spiderman"
 
 RSpec.configure do |config|
