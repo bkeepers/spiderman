@@ -106,13 +106,13 @@ module Spiderman
     @list ||= []
   end
 
-  def run(spider = nil)
-    spiders = spider ? [find(spider)] : list
-    spiders.each(&:crawl!)
+  def run(crawler = nil)
+    crawlers = crawler ? [find(crawler)] : list
+    crawlers.each(&:crawl!)
   end
 
   def find(name)
-    self.list.detect { |spider| spider.name.demodulize.underscore == name }
+    self.list.detect { |crawler| crawler.name.demodulize.underscore == name }
   end
 
   def add(clazz)
