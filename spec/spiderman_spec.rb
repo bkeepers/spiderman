@@ -33,14 +33,6 @@ RSpec.describe Spiderman do
   describe "crawl!" do
     let!(:request) { stub_request(:get, "https://example.com") }
 
-    def spider(&block)
-      @spider ||= begin
-        block ||= -> (request) { }
-        subject.crawl "https://example.com", &block
-        subject
-      end
-    end
-
     it "makes the request" do
       spider.new.crawl!
       expect(request).to have_been_made.once
@@ -54,6 +46,24 @@ RSpec.describe Spiderman do
       spider.crawler.headers[:user_agent] = 'CustomHeader'
       spider.new.crawl!
       expect(request.with(:headers => {user_agent: 'CustomHeader'})).to have_been_requested
+    end
+  end
+
+  describe "process!" do
+    let!(:request) { stub_request(:get, "https://example.com").to_return(body: "Hello World") }
+
+    it "it yields data to the processor" do
+      called = false
+      data = {a: 1}
+
+      example = self
+      spider.process :thing do |response, args|
+        example.expect(args).to example.eq(data)
+        called = true
+      end
+      spider.process! "https://example.com", :thing, data
+
+      expect(called).to be(true)
     end
   end
 
@@ -107,6 +117,14 @@ RSpec.describe Spiderman do
       it "includes finds crawler by name" do
         expect(Spiderman.find('spider_man')).to eq(SpiderMan)
       end
+    end
+  end
+
+  def spider(&block)
+    @spider ||= begin
+      block ||= -> (request) { }
+      subject.crawl "https://example.com", &block
+      subject
     end
   end
 end

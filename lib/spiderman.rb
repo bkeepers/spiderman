@@ -82,18 +82,23 @@ module Spiderman
     end
   end
 
-  def process!(url, with = nil)
+  def process!(url, with = nil, data = {})
     if defined?(ActiveJob) && self.is_a?(ActiveJob::Base)
-      self.class.perform_later(url.to_s, with)
+      self.class.perform_later(url.to_s, with, data)
     else
-      perform(url, with)
+      perform(url, with, data)
     end
   end
 
-  def perform(url, with = nil)
+  def perform(url, with = nil, data = {})
     handler = crawler.handler_for(with || url)
     response = crawler.request(url)
-    instance_exec response, &handler
+    case handler.arity
+    when 1, -1
+      instance_exec response, &handler
+    else
+      instance_exec response, data, &handler
+    end
   end
 
   def name
