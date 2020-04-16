@@ -65,7 +65,7 @@ module Spiderman
     end
 
     # Processors are called from `crawl` and can be used to handle different
-    # types of responsezs.
+    # types of responses.
     def process(type, &block)
       crawler.register(type, &block)
     end
